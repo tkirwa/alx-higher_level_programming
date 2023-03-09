@@ -1,2 +1,3 @@
 #!/usr/bin/python3
-import os; os.write(1, b'#pythoniscool\n')
+"""Module to print #pythoniscool"""
+str = "#pythoniscool"; exec("print(str + '\\n')")
