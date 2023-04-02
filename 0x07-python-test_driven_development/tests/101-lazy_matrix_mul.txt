@@ -1,0 +1,56 @@
+cat > tests/101-lazy_matrix_mul.txt <<EOF
+# Test cases for lazy_matrix_mul function using NumPy module
+
+# Test with matrices of same dimensions
+>>> lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4]])
+array([[ 7, 10],
+       [15, 22]])
+
+# Test with matrices of different dimensions
+>>> lazy_matrix_mul([[1, 2]], [[3, 4], [5, 6]])
+Traceback (most recent call last):
+    ...
+ValueError: shapes (1,2) and (2,2) not aligned: 2 (dim 1) != 2 (dim 0)
+
+# Test with empty matrices
+>>> lazy_matrix_mul([], [])
+Traceback (most recent call last):
+    ...
+ValueError: matrices are empty
+
+# Test with a matrix containing a non integer/float element
+>>> lazy_matrix_mul([[1, 2], [3, 'a']], [[1, 2], [3, 4]])
+Traceback (most recent call last):
+    ...
+TypeError: invalid data type
+
+# Test with one matrix as non list
+>>> lazy_matrix_mul(1, [[1, 2], [3, 4]])
+Traceback (most recent call last):
+    ...
+TypeError: matrices should be lists
+
+# Test with matrices containing non list elements
+>>> lazy_matrix_mul([1, 2], [3, 4])
+Traceback (most recent call last):
+    ...
+TypeError: matrices should be lists of lists
+
+# Test with one matrix as list of non list elements
+>>> lazy_matrix_mul([[1, 2], 3], [[1, 2], [3, 4]])
+Traceback (most recent call last):
+    ...
+TypeError: matrices should be lists of lists
+
+# Test with matrices containing empty lists
+>>> lazy_matrix_mul([[], []], [[], []])
+Traceback (most recent call last):
+    ...
+ValueError: matrices are empty
+
+# Test with matrices containing rows of different sizes
+>>> lazy_matrix_mul([[1, 2], [3, 4, 5]], [[1, 2], [3, 4]])
+Traceback (most recent call last):
+    ...
+TypeError: matrices should be rectangular
+EOF

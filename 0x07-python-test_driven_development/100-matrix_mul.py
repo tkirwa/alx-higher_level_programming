@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Module for printing a square with the character #."""
+"""Module for matrix multiplication."""
 
 
 def matrix_mul(m_a, m_b):
