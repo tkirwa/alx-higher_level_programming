@@ -4,7 +4,8 @@ import sys
 
 def is_valid(board, row, col, n):
     """
-    Check if it is valid to place a queen at board[row][col] given the current state of the board
+    Check if it is valid to place a queen at board[row][col]
+    given the current state of the board
     """
     for i in range(col):
         if board[row][i] == 1:
@@ -38,7 +39,8 @@ def solve(board, col, n):
             # Recur to place rest of the queens
             solve(board, col + 1, n)
 
-            # If placing queen in board[i][col] doesn't lead to a solution, backtrack
+            # If placing queen in board[i][col] doesn't lead
+            # to a solution, backtrack
             board[i][col] = 0
 
     return False
