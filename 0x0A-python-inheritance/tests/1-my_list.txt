@@ -1,0 +1,38 @@
+#!/usr/bin/python3
+"""Test for MyList class"""
+
+import sys
+import os
+import unittest
+
+sys.path.append(os.path.abspath('.'))
+MyList = __import__('1-my_list').MyList
+
+class TestMyList(unittest.TestCase):
+    """Test cases for MyList class"""
+
+    def test_sorted_list(self):
+        """Test that a list is printed sorted"""
+        my_list = MyList()
+        my_list.append(1)
+        my_list.append(4)
+        my_list.append(2)
+        my_list.append(3)
+        my_list.append(5)
+
+        # check original list is not sorted
+        self.assertNotEqual(my_list, [1, 2, 3, 4, 5])
+
+        # check sorted method returns the sorted list
+        self.assertEqual(sorted(my_list), [1, 2, 3, 4, 5])
+
+        # check print_sorted method sorts and prints the list
+        with unittest.mock.patch('sys.stdout', new=io.StringIO()) as fake_output:
+            my_list.print_sorted()
+            self.assertEqual(fake_output.getvalue().strip(), "[1, 2, 3, 4, 5]")
+
+        # check original list is still unsorted
+        self.assertNotEqual(my_list, [1, 2, 3, 4, 5])
+
+if __name__ == '__main__':
+    unittest.main()
