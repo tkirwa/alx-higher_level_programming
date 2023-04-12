@@ -2,40 +2,35 @@
 import sys
 
 
-def print_metrics(status_codes, file_size):
-    """Prints the computed metrics"""
+def print_stats(file_size, status_codes):
+    """Prints the current stats"""
     print("File size: {}".format(file_size))
-    for k in sorted(status_codes.keys()):
-        if status_codes[k] > 0:
-            print("{}: {}".format(k, status_codes[k]))
+    for code in sorted(status_codes.keys()):
+        if status_codes[code] != 0:
+            print("{}: {}".format(code, status_codes[code]))
 
 
-def parse_line(line, status_codes, file_size):
-    """Parses a single line and updates the status_codes and file_size"""
+def parse_line(line, status_codes):
+    """Parses a log line and updates the status codes and file size"""
     try:
-        parts = line.split(" ")
-        file_size += int(parts[-1])
-        status_codes[parts[-2]] += 1
+        line_parts = line.split()
+        status = line_parts[-2]
+        if status in status_codes:
+            status_codes[status] += 1
+        file_size = int(line_parts[-1])
     except:
-        pass
-    return (status_codes, file_size)
+        return 0
+    return file_size
 
 
 if __name__ == "__main__":
-    status_codes = {"200": 0, "301": 0, "400": 0, "401": 0,
-                    "403": 0, "404": 0, "405": 0, "500": 0}
     file_size = 0
-    line_count = 0
-
+    status_codes = {"200": 0, "301": 0, "400": 0, "401": 0, "403": 0, "404": 0, "405": 0, "500": 0}
     try:
-        for line in sys.stdin:
-            status_codes, file_size = parse_line(
-                line, status_codes, file_size)
-            line_count += 1
-
-            if line_count % 10 == 0:
-                print_metrics(status_codes, file_size)
-
+        for i, line in enumerate(sys.stdin, 1):
+            file_size += parse_line(line, status_codes)
+            if i % 10 == 0:
+                print_stats(file_size, status_codes)
     except KeyboardInterrupt:
-        print_metrics(status_codes, file_size)
+        print_stats(file_size, status_codes)
         raise
