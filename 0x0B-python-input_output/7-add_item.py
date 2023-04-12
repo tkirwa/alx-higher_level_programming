@@ -1,19 +1,10 @@
 #!/usr/bin/python3
-"""Add all arguments to a Python list and save them to a file"""
-
-import sys
+# 7-save_to_json_file.py
+"""Defines a JSON file-writing function."""
 import json
-from os import path
-from typing import List
 
 
-def load_from_json_file(filename: str) -> List:
-    """Load JSON data from a file"""
-    with open(filename, "r") as f:
-        return json.load(f)
-
-
-def save_to_json_file(my_obj: List, filename: str) -> None:
-    """Save JSON data to a file"""
+def save_to_json_file(my_obj, filename):
+    """Write an object to a text file using JSON representation."""
     with open(filename, "w") as f:
         json.dump(my_obj, f)
