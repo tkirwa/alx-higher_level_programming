@@ -17,14 +17,3 @@ def save_to_json_file(my_obj: List, filename: str) -> None:
     """Save JSON data to a file"""
     with open(filename, "w") as f:
         json.dump(my_obj, f)
-
-
-if __name__ == "__main__":
-    filename = "add_item.json"
-    args = sys.argv[1:]
-    if path.exists(filename):
-        my_list = load_from_json_file(filename)
-    else:
-        my_list = []
-    my_list += args
-    save_to_json_file(my_list, filename)
