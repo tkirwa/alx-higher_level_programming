@@ -74,7 +74,7 @@ class Base:
         """
         if json_string is None or len(json_string) == 0:
             return []
-        return(json.loads(json_string))
+        return (json.loads(json_string))
 
     @classmethod
     def create(cls, **dictionary):
@@ -104,7 +104,7 @@ class Base:
         dummy.update(**dictionary)
 
         # print("cls type --> {}".format(type(cls)))
-        return(dummy)
+        return (dummy)
 
     @classmethod
     def load_from_file(cls):
@@ -177,9 +177,9 @@ class Base:
                                       "x": int(elm[2]), "y": int(elm[3])}
                     obj = cls.create(**dictionary)
                     my_obj.append(obj)
-        except(Exception):
+        except (Exception):
             pass
-        return(my_obj)
+        return (my_obj)
 
     @staticmethod
     def draw(list_rectangles, list_squares):
@@ -215,4 +215,3 @@ class Base:
         turtle.penup()
 
         window.exitonclick()
-        

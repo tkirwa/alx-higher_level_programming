@@ -54,7 +54,6 @@ class Square(Rectangle):
             raise TypeError("width must be an integer")
         if value <= 0:
             raise ValueError("width must be > 0")
-        
         self.width = value
         self.height = value
 
@@ -95,4 +94,3 @@ class Square(Rectangle):
         dict2['y'] = dict1['_Rectangle__y']
 
         return dict2
-    
