@@ -132,3 +132,4 @@ were given"
             Square.__str__()
         s = "__str__() missing 1 required positional argument: 'self'"
         self.assertEqual(str(e.exception), s)
+        

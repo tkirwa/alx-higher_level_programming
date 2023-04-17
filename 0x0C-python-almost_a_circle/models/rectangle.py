@@ -193,3 +193,4 @@ class Rectangle(Base):
         dict["x"] = self.x
         dict["y"] = self.y
         return (dict)
+    

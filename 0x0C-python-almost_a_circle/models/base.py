@@ -215,3 +215,4 @@ class Base:
         turtle.penup()
 
         window.exitonclick()
+        

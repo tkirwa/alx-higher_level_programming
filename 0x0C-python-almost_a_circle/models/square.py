@@ -95,3 +95,4 @@ class Square(Rectangle):
         dict2['y'] = dict1['_Rectangle__y']
 
         return dict2
+    

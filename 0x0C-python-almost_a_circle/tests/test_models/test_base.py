@@ -212,3 +212,4 @@ were given"
         self.assertEqual(str(r1), str(r2))
         self.assertFalse(r1 is r2)
         self.assertFalse(r1 == r2)
+        
