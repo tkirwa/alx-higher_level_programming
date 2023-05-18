@@ -1,2 +1,2 @@
--- Print full description of the table
-SHOW CREATE TABLE `hbtn_0c_0`.`first_table`;
+-- Prints the full description of the table first_table - MySQL server.
+SHOW CREATE TABLE `first_table`;
