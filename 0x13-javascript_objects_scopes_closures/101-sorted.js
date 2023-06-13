@@ -6,9 +6,9 @@ const occurrences = {};
 for (const key in dict) {
   const occurrence = dict[key];
   if (occurrence in occurrences) {
-    occurrences[occurrence].push(key);
+    occurrences[occurrence].push(key.toString());
   } else {
-    occurrences[occurrence] = [key];
+    occurrences[occurrence] = [key.toString()];
   }
 }
 
