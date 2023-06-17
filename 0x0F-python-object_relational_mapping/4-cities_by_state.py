@@ -25,8 +25,9 @@ if __name__ == '__main__':
 
     # Execute the query to retrieve all cities
     cursor.execute("SELECT cities.id, cities.name, states.name \
-                    FROM cities JOIN states \
-                    ON cities.state_id = states.id \
+                    FROM cities \
+                    INNER JOIN states \
+                        ON cities.state_id = states.id \
                     ORDER BY cities.id ASC")
 
     # Fetch all the rows returned by the query
