@@ -16,7 +16,7 @@ if __name__ == "__main__":
 
     # Connect to MySQL server
     db = MySQLdb.connect(
-        host="localhost", 
+        host="localhost",
         port=3306,
         user=username,
         passwd=password,
@@ -38,7 +38,8 @@ if __name__ == "__main__":
     cities = cursor.fetchall()
 
     # Print the cities
-    print(", ".join([cities[2] for cities in cities if cities[4] == state_name]))
+    print(", ".join([cities[2] for cities in cities
+                     if cities[4] == state_name]))
 
     # Close cursor and database connection
     cursor.close()
