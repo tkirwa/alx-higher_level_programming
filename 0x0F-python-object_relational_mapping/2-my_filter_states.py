@@ -29,8 +29,8 @@ if __name__ == "__main__":
 
     # Create the SQL query using format to include the user input
     query = "SELECT * \
-        FROM states \
-            WHERE name = '{}' ORDER BY id ASC".format(state_name)
+                 FROM `states` \
+                WHERE BINARY `name` = '{}'".format(sys.argv[4])
 
     # Execute the query to retrieve states with the matching name
     cursor.execute(query)
@@ -39,8 +39,7 @@ if __name__ == "__main__":
     states = cursor.fetchall()
 
     # Print the states
-    for state in states:
-        print(state)
+    [print(state) for state in states]
 
     # Close cursor and database connection
     cursor.close()
