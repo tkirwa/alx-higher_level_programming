@@ -23,14 +23,14 @@ if __name__ == "__main__":
     cursor = db.cursor()
 
     # Execute the query to retrieve states with a name starting with 'N'
-    cursor.execute("SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC")
+    cursor.execute("SELECT * FROM `states` ORDER BY `id`")
 
     # Fetch all the rows returned by the query
-    states = cursor.fetchall()
+    # states = cursor.fetchall()
 
     # Print the states
-    for state in states:
-        print(state)
+
+    [print(state) for state in cursor.fetchall() if state[1][0] == "N"]
 
     # Close cursor and database connection
     cursor.close()
