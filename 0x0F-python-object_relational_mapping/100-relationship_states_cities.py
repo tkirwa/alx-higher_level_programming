@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-Fetches and prints all City objects from the hbtn_0e_14_usa database
+Creates a State "California" with a City "San Francisco"
+in the hbtn_0e_100_usa database.
 """
 
 import sys
@@ -8,8 +9,8 @@ import sys
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from model_city import City
-from model_state import Base, State
+from relationship_city import City
+from relationship_state import Base, State
 
 if __name__ == "__main__":
     username = sys.argv[1]
@@ -22,12 +23,14 @@ if __name__ == "__main__":
                                                          db_name),
         pool_pre_ping=True,
     )
+    Base.metadata.create_all(engine)
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    # Query all City objects and print them
-    cities = session.query(City).order_by(City.id).all()
-
-    for city in cities:
-        state_name = session.query(State).get(city.state_id).name
-        print("{}: ({}) {}".format(state_name, city.id, city.name))
+    # Create a State "California" with City "San Francisco"
+    california = State(name="California")
+    san_francisco = City(name="San Francisco")
+    california.cities.append(san_francisco)
+    session.add(california)
+    session.add(san_francisco)
+    session.commit()
