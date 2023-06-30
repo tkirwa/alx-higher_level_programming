@@ -1,22 +1,17 @@
 #!/usr/bin/python3
 """
-Sends a request to a URL and displays the body of the response...
- (decoded in utf-8).
+Fetches https://alx-intranet.hbtn.io/status and displays the ...
+body of the response.
 """
 
-import urllib.request
-import urllib.error
-import sys
+import requests
 
 if __name__ == "__main__":
-    """Send a request to the URL and display the response body."""
-    url = sys.argv[1]
+    """Send a GET request to the URL and display the response body."""
+    url = 'https://alx-intranet.hbtn.io/status'
+    response = requests.get(url)
+    content = response.text
 
-    try:
-        with urllib.request.urlopen(url) as response:
-            """Retrieve and display the response body."""
-            body = response.read().decode('utf-8')
-            print(body)
-    except urllib.error.HTTPError as e:
-        """Handle HTTP errors and print the error code."""
-        print("Error code:", e.code)
+    print("Body response:")
+    print("\t- type: {}".format(type(content)))
+    print("\t- content: {}".format(content))
