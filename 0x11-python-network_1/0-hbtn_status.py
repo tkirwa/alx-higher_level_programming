@@ -1,21 +1,19 @@
 #!/usr/bin/python3
 """
-Fetches https://intranet.hbtn.io/status.
+Fetches https://alx-intranet.hbtn.io/status.
 """
 
 import urllib.request
 
-
 if __name__ == "__main__":
-    # Create a request object with the URL
-    request = urllib.request.Request("https://intranet.hbtn.io/status")
+    """Retrieve and display the body response of the URL."""
+    url = "https://alx-intranet.hbtn.io/status"
 
-    # Send the request and retrieve the response
-    with urllib.request.urlopen(request) as response:
-        # Read the response body
+    req = urllib.request.Request(url)
+    with urllib.request.urlopen(req) as response:
+        """Read the response and display the body response."""
         body = response.read()
 
-        # Print the body response
         print("Body response:")
         print("\t- type: {}".format(type(body)))
         print("\t- content: {}".format(body))
