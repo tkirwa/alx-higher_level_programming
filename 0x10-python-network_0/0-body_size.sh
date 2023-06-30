@@ -10,5 +10,11 @@ response=$(curl -sI "$url")
 # Extract the Content-Length header value from the response
 content_length=$(echo "$response" | grep -i Content-Length | awk '{print $2}')
 
+# Send a GET request to the URL and retrieve the response body
+body=$(curl -s "$url")
+
+# Calculate the size of the response body in bytes
+body_size=$(echo -n "$body" | wc -c)
+
 # Display the content length (size) in bytes
-echo "$content_length"
+echo "$body_size"
