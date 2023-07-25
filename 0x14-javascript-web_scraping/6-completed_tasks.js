@@ -1,32 +1,34 @@
 #!/usr/bin/node
+// Computes the number of tasks completed by user id from jsonplaceholder.typicode.com API
 
 const request = require('request');
+const url = process.argv[2]; // Get the API URL from the command-line arguments
 
-// Get the API URL from the command-line arguments
-const apiUrl = process.argv[2];
-
-// Send a GET request to the specified API URL
-request.get(apiUrl, (error, response, body) => {
-  if (error) {
+request(url, function (err, res, body) {
+  if (err) {
     // If an error occurred during the request, print the error object
-    console.error(error);
-  } else {
-    // Parse the response body as JSON to access the tasks data
-    const tasksData = JSON.parse(body);
+    console.log(err);
+  }
 
-    // Create an empty object to store the number of completed tasks per user
-    const completedTasksCount = {};
+  // Parse the response body as JSON to access the tasks data
+  const tasks = JSON.parse(body);
 
-    // Loop through each task
-    for (const task of tasksData) {
-      // Check if the task is completed (completed tasks have 'completed' property set to true)
-      if (task.completed) {
-        // Increment the count for the corresponding user ID or set it to 1 if the ID doesn't exist in the object
-        completedTasksCount[task.userId] = (completedTasksCount[task.userId] || 0) + 1;
+  // Create an empty object to store the number of completed tasks per user
+  const obj = {};
+
+  // Loop through each task
+  for (const task of tasks) {
+    // Check if the task is completed (completed tasks have 'completed' property set to true)
+    if (task.completed === true) {
+      // Increment the count for the corresponding user ID or set it to 1 if the ID doesn't exist in the object
+      if (obj[task.userId] === undefined) {
+        obj[task.userId] = 1;
+      } else {
+        obj[task.userId]++;
       }
     }
-
-    // Print the object containing the number of completed tasks per user ID
-    console.log(completedTasksCount);
   }
+
+  // Print the object containing the number of completed tasks per user ID
+  console.log(obj);
 });
