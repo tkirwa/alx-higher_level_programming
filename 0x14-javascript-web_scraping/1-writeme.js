@@ -1,3 +1,5 @@
+#!/usr/bin/node 
+
 const fs = require('fs');
 
 // Get the file path and content from command-line arguments
