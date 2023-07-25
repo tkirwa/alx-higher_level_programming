@@ -1,26 +1,34 @@
 #!/usr/bin/node
 
-const request = require('request');
 const url = process.argv[2];
+const request = require('request');
 
-request(url, function (err, response, body) {
-  if (err) {
-    console.log(err);
+request(url, function (error, response, body) {
+  if (error) {
+    // If an error occurred during the request, print the error object
+    console.log(error);
   } else if (response.statusCode === 200) {
-    const completed = {};
+    // If the request was successful (status code 200), proceed
+
+    // Create an empty object to store the number of completed tasks per user
+    const dic = {};
+
+    // Parse the response body as JSON to access the tasks data
     const tasks = JSON.parse(body);
+
+    // Loop through each task
     for (const i in tasks) {
-      const task = tasks[i];
-      if (task.completed === true) {
-        if (completed[task.userId] === undefined) {
-          completed[task.userId] = 1;
-        } else {
-          completed[task.userId]++;
-        }
+      // Check if the task is completed (completed tasks have 'completed' property set to true)
+      if (tasks[i].completed) {
+        // Increment the count for the corresponding user ID or set it to 1 if the ID doesn't exist in the object
+        dic[tasks[i].userId] = (dic[tasks[i].userId] || 0) + 1;
       }
     }
-    console.log(completed);
+
+    // Print the object containing the number of completed tasks per user ID
+    console.log(dic);
   } else {
-    console.log('An error occured. Status code: ' + response.statusCode);
+    // If the request returned an invalid response, print the status code
+    console.log('Error: ' + response.statusCode);
   }
 });
