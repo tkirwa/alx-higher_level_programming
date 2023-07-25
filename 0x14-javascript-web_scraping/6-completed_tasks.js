@@ -1,23 +1,29 @@
 #!/usr/bin/node
 
 const request = require('request');
-const url = process.argv[2];
+const apiUrl = process.argv[2];
 
-request.get(url, { json: true }, (error, response, body) => {
+// Make the API request and process the data
+request(apiUrl, function (error, response, body) {
   if (error) {
-    console.log(error);
-    return;
-  }
+    console.error('Error:', error);
+  } else if (response.statusCode === 200) {
+    const tasks = JSON.parse(body);
+    const completedTasksByUser = {};
 
-  const tasksCompleted = {};
-  body.forEach((todo) => {
-    if (todo.completed) {
-      if (!tasksCompleted[todo.userId]) {
-        tasksCompleted[todo.userId] = 1;
-      } else {
-        tasksCompleted[todo.userId] += 1;
+    // Count completed tasks for each user
+    tasks.forEach(task => {
+      if (task.completed) {
+        if (completedTasksByUser[task.userId] === undefined) {
+          completedTasksByUser[task.userId] = 1;
+        } else {
+          completedTasksByUser[task.userId]++;
+        }
       }
-    }
-  });
-  console.log(tasksCompleted);
+    });
+
+    console.log(completedTasksByUser);
+  } else {
+    console.error('Error:', response.statusCode);
+  }
 });
