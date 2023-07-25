@@ -42,4 +42,4 @@ request(apiUrl, (error, response, body) => {
   // Print the completedTasksByUser object, which contains the count of completed tasks for each user
   console.log(completedTasksByUser);
 });
-
+    
