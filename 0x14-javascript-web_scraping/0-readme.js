@@ -1,13 +1,16 @@
-const fs = require('fs');
+#!/usr/bin/node
 
-// Get the file path from the command-line arguments
-const filePath = process.argv[2];
+// This script reads and prints the content of a file
+
+// Import the required Node.js modules
+const argv = process.argv; // The command-line arguments array
+let fs = require('fs'); // File system module to read files
 
 // Read the content of the file asynchronously in utf-8 encoding
-fs.readFile(filePath, 'utf-8', (err, data) => {
+fs.readFile(argv[2], 'utf8', function (err, data) {
   if (err) {
     // If an error occurred during reading, print the error object
-    console.error(err);
+    console.log(err);
   } else {
     // If successful, print the content of the file
     console.log(data);
