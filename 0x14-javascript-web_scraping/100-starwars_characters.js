@@ -4,7 +4,7 @@ const request = require('request');
 const movieId = process.argv[2];
 
 // Helper function to fetch characters for a movie
-function getCharacters(movieId) {
+function getCharacters (movieId) {
   const apiUrl = `https://swapi-api.alx-tools.com/api/films/${movieId}/`;
 
   request(apiUrl, function (error, response, body) {
@@ -21,7 +21,7 @@ function getCharacters(movieId) {
 }
 
 // Helper function to recursively fetch and print character names
-function fetchCharacters(characterUrls, index) {
+function fetchCharacters (characterUrls, index) {
   if (index >= characterUrls.length) {
     // All characters have been fetched, exit recursion
     return;
