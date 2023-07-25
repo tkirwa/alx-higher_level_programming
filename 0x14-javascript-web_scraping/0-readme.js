@@ -4,7 +4,7 @@
 
 // Import the required Node.js modules
 const argv = process.argv; // The command-line arguments array
-let fs = require('fs'); // File system module to read files
+const fs = require('fs'); // File system module to read files
 
 // Read the content of the file asynchronously in utf-8 encoding
 fs.readFile(argv[2], 'utf8', function (err, data) {
