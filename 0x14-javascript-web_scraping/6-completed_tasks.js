@@ -27,4 +27,3 @@ request(process.argv[2], function (error, response, body) {
   // Print the dictionary containing the number of completed tasks for each user
   console.log(dict);
 });
-
