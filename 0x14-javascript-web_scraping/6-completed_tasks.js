@@ -1,33 +1,31 @@
 #!/usr/bin/node
-
 const request = require('request');
 
-const apiUrl = process.argv[2];
+// Get the API URL from the command line arguments (process.argv[2])
+request(process.argv[2], function (error, response, body) {
+  // Check if there was an error in the HTTP request
+  if (!error) {
+    // Parse the response body (which is in JSON format) into a JavaScript object
+    const todos = JSON.parse(body);
 
-request(apiUrl, (error, response, body) => {
-  if (error) {
-    console.error('Error:', error);
-    return;
-  }
+    // Create an object to store the count of completed tasks for each user
+    const completed = {};
 
-  if (response.statusCode !== 200) {
-    console.error('Invalid API response:', response.statusCode);
-    return;
-  }
-
-  const tasks = JSON.parse(body);
-
-  const completedTasksByUser = {};
-
-  tasks.forEach(task => {
-    if (task.completed) {
-      if (!completedTasksByUser[task.userId]) {
-        completedTasksByUser[task.userId] = 1;
-      } else {
-        completedTasksByUser[task.userId]++;
+    // Iterate over each todo in the response
+    todos.forEach((todo) => {
+      // Check if the todo is completed (property 'completed' is true)
+      if (todo.completed) {
+        // If the user id is not in the 'completed' object, initialize it to 1.
+        // Otherwise, increment the count by 1.
+        if (completed[todo.userId] === undefined) {
+          completed[todo.userId] = 1;
+        } else {
+          completed[todo.userId] += 1;
+        }
       }
-    }
-  });
+    });
 
-  console.log(completedTasksByUser);
+    // Print the 'completed' object, which contains the count of completed tasks for each user
+    console.log(completed);
+  }
 });
