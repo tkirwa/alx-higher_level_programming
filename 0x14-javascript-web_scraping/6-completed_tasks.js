@@ -29,6 +29,5 @@ request(apiUrl, (error, response, body) => {
     }
   });
 
-  // Stop server
-  process.exit(0);
+  console.log(completedTasksByUser);
 });
