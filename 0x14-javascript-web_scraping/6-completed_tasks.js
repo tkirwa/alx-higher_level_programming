@@ -2,30 +2,35 @@
 const request = require('request');
 
 // Get the API URL from the command line arguments (process.argv[2])
-request(process.argv[2], function (error, response, body) {
-  // Check if there was an error in the HTTP request
-  if (!error) {
+const url = process.argv[2];
+
+// Create an object to store the count of completed tasks for each user
+const myDict = {};
+
+// Make an HTTP GET request to the provided API URL
+request(url, function (err, data, body) {
+  if (err) {
+    // If there's an error in the request, log the error
+    console.log(err);
+  } else {
     // Parse the response body (which is in JSON format) into a JavaScript object
-    const todos = JSON.parse(body);
+    const response = JSON.parse(body);
 
-    // Create an object to store the count of completed tasks for each user
-    const completed = {};
-
-    // Iterate over each todo in the response
-    todos.forEach((todo) => {
+    // Iterate over each element (todo) in the response
+    for (let i = 0; i < response.length; i++) {
       // Check if the todo is completed (property 'completed' is true)
-      if (todo.completed) {
-        // If the user id is not in the 'completed' object, initialize it to 1.
+      if (response[i].completed === true) {
+        // If the user id is not in 'myDict', initialize it to 1.
         // Otherwise, increment the count by 1.
-        if (completed[todo.userId] === undefined) {
-          completed[todo.userId] = 1;
+        if (myDict[response[i].userId] === undefined) {
+          myDict[response[i].userId] = 1;
         } else {
-          completed[todo.userId] += 1;
+          myDict[response[i].userId] += 1;
         }
       }
-    });
-
-    // Print the 'completed' object, which contains the count of completed tasks for each user
-    console.log(completed);
+    }
   }
+
+  // Print the 'myDict' object, which contains the count of completed tasks for each user
+  console.log(myDict);
 });
