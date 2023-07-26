@@ -29,6 +29,6 @@ request(apiUrl, (error, response, body) => {
     }
   });
 
-  // Correcting the output format
-  console.log(JSON.stringify(completedTasksByUser, null, 2));
+  // Stop server
+  process.exit(0);
 });
